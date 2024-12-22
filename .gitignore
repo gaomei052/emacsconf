@@ -1,0 +1,17 @@
+/elpa/*
+/auto-save-list/*
+/snippets/*
+/transient/*
+projectile-bookmarks.eld
+recentf
+init.el~
+**/*#
+**/*~
+*#
+*~
+.cache/*
+.emacs.desktop
+.dap-breakpoints
+.lsp-session-v1
+.projectile
+.swiftpm/*
