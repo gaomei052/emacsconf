@@ -1,4 +1,5 @@
 /elpa/*
+**/elpa
 /auto-save-list/*
 /snippets/*
 /transient/*
@@ -15,3 +16,10 @@ init.el~
 .lsp-session-v1
 .projectile
 .swiftpm/*
+*_archive
+*.eld
+*.cache
+**/projects
+README.*
+!README.org
+bookmarks
