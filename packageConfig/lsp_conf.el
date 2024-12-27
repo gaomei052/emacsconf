@@ -1,3 +1,6 @@
+(load-file (expand-file-name "tools/executor.el" user-emacs-directory))
+
+
 (use-package lsp-mode
   :ensure t
   :config
