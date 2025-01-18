@@ -23,13 +23,13 @@
      "\n"
      ""
      (concat project-dir "/" exe))))
-  (message bin-path))
+  (format "%s" bin-path))
+
 
 
 (defun get-args(args)
   (interactive "sExecute bin args: ")
-  (format args))
-
+  (split-string args "\\s+"))
 
 (defun clear-make-build-file(arg)
   (setq launch-args (plist-get arg :launch-aargs))

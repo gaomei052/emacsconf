@@ -13,13 +13,12 @@
   :init
   (dap-mode 1)
   (dap-ui-mode 1)
-  (dap-tooltip-mode 1)
-  (tooltip-mode 1)
+;;  (dap-tooltip-mode 0)
+;;  (tooltip-mode 0)
   (dap-ui-controls-mode 1)
   :hook (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra)))
-  :bind-keymap ("C-," . dap-breakpoint-work-map))  
-
-
+  (dap-stopped . (lambda (arg) (dap-tooltip-mode 0)))
+  :bind-keymap ("C-," . dap-breakpoint-work-map))
 
 ;;C & C++ config
 (require 'dap-lldb)
@@ -32,6 +31,15 @@
 				   :request "launch"
 				   :name "lldb-vscode-make-debug"
 				   ))
+
+(dap-register-debug-template "lldb-vscode-make-debug-args"
+			     (list :type "lldb-vscode"
+				   :cwd nil
+				   :request "launch"
+				   :args '("-fmmm.txt" "-vttt=4")
+				   :name "lldb-vscode-make-debug-args"
+				   ))
+
 
 ;;golnag configure
 (require 'dap-dlv-go)
