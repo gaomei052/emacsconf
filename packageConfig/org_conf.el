@@ -137,10 +137,7 @@
 ;;config crypt
 (setq epa-pinentry-mode 'loopback)
 
-;;config meeting template
-
-
-;;agenda posframe
+;;agenda posframe alter
 (defun bff-posframe-handler(info)
   (let* ((frame (plist-get info :frame))
 	 (poswidth (plist-get info :posframe-width))

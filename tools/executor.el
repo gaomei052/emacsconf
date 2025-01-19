@@ -174,7 +174,8 @@
        :command command-list
        :sentinel 'ex-entry-process-sentinel
        :buffer bn
-       :stderr bn
-       :stdout bn))))
+;;       :stderr bn
+;;       :stdout bn
+       ))))
   
 (define-key global-map (kbd "C-x xx") 'executor-ex)
