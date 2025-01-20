@@ -5,6 +5,7 @@
   
 (dashboard-setup-startup-hook)
 (setq dashboard-startup-banner '("~/.emacs.d/images/dog_svg.png" . ""))
+(setq dashboard-banner-logo-title (format "Welcom to emacs %s." emacs-version))
 (setq dashboard-items '((recents . 8)
 			  (bookmarks . 5)
 			  (projects . 5)

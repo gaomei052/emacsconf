@@ -28,7 +28,6 @@
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
   (package-refresh-contents)
   (mapc #'package-install package-selected-packages))
-
 (exec-path-from-shell-initialize)
 (load-file (expand-file-name "packageConfig/projectile_config.el" user-emacs-directory))
 (load-file (expand-file-name "packageConfig/dashboard_config.el" user-emacs-directory))
