@@ -4,6 +4,7 @@
 (use-package lsp-mode
   :ensure t
   :config
+  (setq lsp-session-file "/Users/gaomei/.emacs.d/temp/emacs-run/lsp-session-v1")
   (setq lsp-gopls-server-path "~/go/bin/gopls")
   (setq lsp-clients-lua-lsp-server-install-dir "/Users/gaomei/.luarocks/bin/lua-lsp")
   (setenv "PERL5LIB" "/Users/gaomei/perl5/lib/perl5")

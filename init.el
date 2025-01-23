@@ -10,7 +10,7 @@
 			    (tool-bar-lines . 0)
 			    (vertical-scroll-bars . nil)
 			    (horizontal-scroll-bars . nil)
-			    (width . 215)
+			    (width . 213)
 			    (height . 60)
 			    (top . 0)
 			    (left . 0)))
@@ -31,9 +31,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bookmark-default-file "~/.emacs.d/temp/emacs-run/bookmarks")
+ '(bookmark-file "~/.emacs.d/temp/emacs-run/bookmarks")
+ '(diary-file "~/.emacs.d/temp/emacs-run/diary")
+ '(ielm-history-file-name "~/.emacs.d/temp/emacs-run/ielm-history.eld")
  '(kill-ring-max 80)
  '(org-agenda-files '("~/bingo/org/agenda/ms.org"))
- '(package-selected-packages nil))
+ '(package-selected-packages
+   '(ag company dap-mode dashboard exec-path-from-shell flycheck go-mode
+	helm-lsp helm-xref json-mode lsp-pyright lua-mode magit
+	projectile python-mode typescript-mode yasnippet zenburn-theme))
+ '(project-list-file "~/.emacs.d/temp/emacs-run/projects")
+ '(transient-levels-file "~/.emacs.d/temp/emacs-run/transient/levels.el")
+ '(transient-values-file "~/.emacs.d/temp/emacs-run/transient/values.el")
+ '(transient-history-file "~/.emacs.d/temp/emacs-run/transient/history.el")
+ '(recentf-save-file "~/.emacs.d/temp/emacs-run/recentf")
+ '(tramp-auto-save-directory "~/.emacs.d/temp/autosaves"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

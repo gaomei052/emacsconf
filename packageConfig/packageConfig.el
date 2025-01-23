@@ -1,7 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/") t)
 (package-initialize)
-
 (setq package-selected-packages '(lsp-mode
 				  yasnippet
 				  lsp-treemacs

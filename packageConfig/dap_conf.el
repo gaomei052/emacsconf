@@ -5,7 +5,8 @@
   "C-d" 'dap-debug
   "x" 'dap-disconnect
   "b" 'dap-breakpoint-toggle
-  "D" 'dap-breakpoint-delete-all
+  "A" 'dap-breakpoint-delete-all
+  "D" 'dap-breakpoint-delete
   "l" 'dap-ui-breakpoints)
 
 (use-package dap-mode
@@ -18,7 +19,11 @@
   (dap-ui-controls-mode 1)
   :hook (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra)))
   (dap-stopped . (lambda (arg) (dap-tooltip-mode 0)))
-  :bind-keymap ("C-," . dap-breakpoint-work-map))
+  :bind-keymap ("C-," . dap-breakpoint-work-map)
+  :config
+  (setq dap-breakpoints-file "/Users/gaomei/.emacs.d/temp/emacs-run/dap-breakpoints"))
+
+
 
 ;;C & C++ config
 (require 'dap-lldb)
@@ -36,7 +41,7 @@
 			     (list :type "lldb-vscode"
 				   :cwd nil
 				   :request "launch"
-				   :args '("-fmmm.txt" "-vttt=4")
+				   :args '("{print $0}" "/Users/gaomei/bingo/awk/test.txt")
 				   :name "lldb-vscode-make-debug-args"
 				   ))
 

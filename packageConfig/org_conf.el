@@ -1,6 +1,7 @@
 (use-package org
   :ensure t
   :config
+  (setq org-id-locations-file "/Users/gaomei/.emacs.d/temp/emacs-run/.org-id-locations")
   (setq org-babel-python-command "/Users/gaomei/.virtualenvs/common399/bin/python")
   (setq org-directory "~/bingo/org")
   (setq org-default-notes-file (concat org-directory "/notes.org"))
