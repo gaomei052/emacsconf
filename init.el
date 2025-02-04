@@ -42,11 +42,13 @@
 	helm-lsp helm-xref json-mode lsp-pyright lua-mode magit
 	projectile python-mode typescript-mode yasnippet zenburn-theme))
  '(project-list-file "~/.emacs.d/temp/emacs-run/projects")
- '(transient-levels-file "~/.emacs.d/temp/emacs-run/transient/levels.el")
- '(transient-values-file "~/.emacs.d/temp/emacs-run/transient/values.el")
- '(transient-history-file "~/.emacs.d/temp/emacs-run/transient/history.el")
  '(recentf-save-file "~/.emacs.d/temp/emacs-run/recentf")
- '(tramp-auto-save-directory "~/.emacs.d/temp/autosaves"))
+ '(smtpmail-smtp-server "smtp.gmail.com")
+ '(smtpmail-smtp-service 25)
+ '(tramp-auto-save-directory "~/.emacs.d/temp/autosaves")
+ '(transient-history-file "~/.emacs.d/temp/emacs-run/transient/history.el")
+ '(transient-levels-file "~/.emacs.d/temp/emacs-run/transient/levels.el")
+ '(transient-values-file "~/.emacs.d/temp/emacs-run/transient/values.el"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

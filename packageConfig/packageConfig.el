@@ -22,6 +22,7 @@
 				  go-mode
 				  lua-mode
 				  lsp-pyright
+				  request
 				  magit
 				  ))
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
@@ -35,3 +36,4 @@
 (load-file (expand-file-name "packageConfig/helm_conf.el" user-emacs-directory))
 (load-file (expand-file-name "packageConfig/other_conf.el" user-emacs-directory))
 (load-file (expand-file-name "packageConfig/dap_conf.el" user-emacs-directory))
+(load-file (expand-file-name "tools/ai.el" user-emacs-directory))
