@@ -91,6 +91,24 @@
   :exec-path "/opt/homebrew/bin/awk"
   :name "awk"))
 
+(defun python-executor-work(config script)
+  (setq result nil)
+  (let ((args-mid (plist-get config :args-mid))
+	(src-file (plist-get config :src-file))
+	(exec-path (plist-get config :exec-path)))
+    (push exec-path result)
+    (push script result))
+  (reverse result))
+
+(executor-type-template
+ (list
+  :mode 'python-mode
+  :args-mid ""
+  :src-file ""
+  :executor-work 'python-executor-work
+  :exec-path "/Users/gaomei/.virtualenvs/common399/bin/python"
+  :name "python"))
+
 (defun get-makefile-project-dir(dir)
   (when (or (string= dir "") (string= dir "/"))
     (error (message "Not find makefile.")))
@@ -136,7 +154,6 @@
   :makefile-pth ""
   :executor-work 'C-executor-work
   :name "c"))
-
 
 
 (defun ex-entry-process-sentinel(process event)

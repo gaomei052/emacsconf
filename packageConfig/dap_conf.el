@@ -69,7 +69,7 @@
         :args "-i"
         :cwd nil
         :env '(("DEBUG" . "1"))
-	:target-module (expand-file-name "~/bingo/python/algorithms/sorts/sort.py")
+	:target-module (buffer-file-name (current-buffer))
         :request "launch"
 	:debugger  'debugpy
         :name "Common399"))

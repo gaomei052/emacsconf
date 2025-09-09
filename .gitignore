@@ -13,6 +13,6 @@ elpa*/**
 **/tramp
 **/url/**
 **/recentf
-
-
+.cache
+**/nov-places
 
