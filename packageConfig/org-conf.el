@@ -1,3 +1,5 @@
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
 (use-package org
   :ensure t
   :config
@@ -14,15 +16,15 @@
   (let ((url-input (read-from-minibuffer "Url path: ")))
     (format "[[%s][跳转]]" url-input)))
 
-(defun org-current-week ()
-  "返回当前是第几周"
-  (let ((today (decode-time (current-time))))
-    (let ((year (nth 5 today))
-          (month (nth 4 today))
-          (day (nth 3 today)))
-      ;; 这里可以加入更复杂的计算，考虑闰年等因素
-      (let ((days-in-year (calendar-total-days year month day)))
-        (1+ (floor days-in-year 7))))))
+;;(defun org-current-wee org-current-week ()
+;;  "返回当前是第几周"
+;;  (let ((today (decode-time (current-time))))
+;;    (let ((year (nth 5 today))
+;;          (month (nth 4 today))
+;;          (day (nth 3 today)))
+;;      ;; 这里可以加入更复杂的计算，考虑闰年等因素
+;;      (let ((days-in-year (calendar-total-days year month day)))
+;;        (1+ (floor days-in-year 7))))))
 
 ;;Org capture template
 (setq org-capture-templates
@@ -86,6 +88,9 @@
 (setq agenda-frame-v "agenda-frame-323424")
 (setq agenda-frame-flag 0)
 
+(defvar agenda-frame nil
+  "Frame used for agenda display.")
+
 (defun create-agenda-frame()
   (interactive)
   (when (> agenda-frame-flag 0)
@@ -123,7 +128,7 @@
 
 (defun find-agenda-frame-by-title()
   (interactive)
-  (let ((foud-frame nil))
+  (let ((found-frame nil))
     (mapc (lambda(frame)
 	    (when (string= agenda-frame-v (frame-parameter frame 'title))
 	      (setq found-frame frame)))
@@ -136,15 +141,20 @@
 (define-key global-map (kbd "C-c C-'") 'return-agenda-frame)
 
 ;;config crypt
-(setq epa-pinentry-mode 'loopback)
+;;(setq epa-pinentry-mode 'loopback)
+(setq epg-pinentry-mode 'loopback)
 
 ;;agenda posframe alter
 (defun bff-posframe-handler(info)
-  (let* ((frame (plist-get info :frame))
-	 (poswidth (plist-get info :posframe-width))
+  ;;(let* ((frame (plist-get info :frame))
+  (let* ((poswidth (plist-get info :posframe-width))
 	 (fwidth (plist-get info :parent-frame-width))
 	 (width (- fwidth poswidth)))
     (cons width 1)))
+
+(declare-function posframe-delete-all "posframe")
+(declare-function posframe-show "posframe")
+(declare-function posframe-hide "posframe")
 	 
 (defun bff(data tout)
 	(let ((bf (get-buffer-create "*posframe message 0023324*"))
@@ -196,3 +206,6 @@
       (bff messages 30))))
 
 (run-with-timer 60 60 'agenda-alter-time-out)
+
+
+(provide 'org-conf)

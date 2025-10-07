@@ -1,3 +1,5 @@
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
 (use-package zenburn-theme
   :ensure t)
 
@@ -43,3 +45,14 @@
 
 (setq auto-save-list-file-prefix
       "/Users/gaomei/.emacs.d/temp/emacs-run/auto-save-list/.saves-")
+
+(setq initial-banner-choice "~/.emacs.d/banner.txt")
+
+;; 安装 auto-compile 包
+(use-package auto-compile
+  :ensure t
+  :config
+  (auto-compile-on-load-mode 1)
+  (auto-compile-on-save-mode 1))
+
+(provide 'other-conf)

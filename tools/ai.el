@@ -1,3 +1,10 @@
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
+(declare-function json-encode "json-encode")
+(declare-function request "request")
+(declare-function json-read-from-string "json-read-from-string")
+
+
 (defvar-local ai-first-display-buffer "*ai display buffer 322348729*")
 (defvar-local ai-second-display-buffer "*ai display buffer 987293847*")
 
@@ -17,15 +24,17 @@
 			     dis-type
 			     internal-border-width
 			     internal-border-color
-			     cursor-type
-			     line-spacing
+			     my-cursor-type
+			     my-line-spacing
 			     left-fringe
 			     right-fringe
 			     background
 			     decorated
-			     header-line-format
-			     mode-line-format
+			     my-header-line-format
+			     my-mode-line-format
 			     &allow-other-keys)
+  (ignore title)
+  (ignore internal-border-color)
   (let* ((position (or position (cons 0 0)))
 	 (internal-border-width (or internal-border-width border-width 1))
 	 (width (if (and (fixnump width) (numberp width))
@@ -47,10 +56,10 @@
 				(tab-bar-lines . ,tab-bar-lines)
 				(border-width . ,border-width)
 				(internal-border-width . ,internal-border-width)
-				(cursor-type . ,cursor-type)
+				(cursor-type . ,my-cursor-type)
 				(ai-dis-frame . t)
 				(ai-dis-type . ,dis-type)
-				(line-spacing . ,line-spacing)
+				(line-spacing . ,my-line-spacing)
 				(left-fringe . ,left-fringe)
 				(right-fringe . ,right-fringe)
 				(undecorated . ,(not decorated)))))
@@ -60,10 +69,10 @@
       (set-face-background 'child-frame-border border-color dis-frame))
     (when background
       (set-face-background 'default background dis-frame))
-    (unless header-line-format
-      (set-window-parameter dis-window 'header-line-format 'none))
-    (unless mode-line-format
-      (set-window-parameter dis-window 'mode-line-format 'none))
+    (unless my-header-line-format
+      (set-window-parameter dis-window 'my-header-line-format 'none))
+    (unless my-mode-line-format
+      (set-window-parameter dis-window 'my-mode-line-format 'none))
     (set-frame-position dis-frame (car position) (cdr position))
     dis-frame))
 
@@ -80,12 +89,13 @@
 
 (defun ai-display-hide()
   (interactive)
-  (setq parent-frame nil)
-  (dolist (frame (frame-list))
-    (when (frame-parameter frame 'ai-dis-frame)
-      (make-frame-invisible frame)
-      (setq parent-frame (frame-parent frame))))
-  (select-frame parent-frame))
+  ;;(setq parent-frame nil)
+  (let ((parent-frame nil))
+    (dolist (frame (frame-list))
+      (when (frame-parameter frame 'ai-dis-frame)
+	(make-frame-invisible frame)
+	(setq parent-frame (frame-parent frame))))
+    (select-frame parent-frame)))
 
 (defvar-keymap ai-posframe-keymap
   :doc "AI posframe keymap"
@@ -104,7 +114,7 @@
 
 (cl-defun ai--display()
   (let* ((frame-width (frame-pixel-width))
-	 (frame-height (frame-pixel-height))
+	 ;;(frame-height (frame-pixel-height))
 	 (width 80)
 	 (height 55)
 	 (position-1 (cons (- (/ frame-width 2) (* width 7) 2) 10))
@@ -136,43 +146,48 @@
     (cons frame-1 frame-2)))
 
 (defun ai-display-show()
-  (setq think-buf (get-buffer ai-first-display-buffer))
-  (setq main-buf (get-buffer ai-second-display-buffer))
-  (setq think-frame nil)
-  (setq main-frame nil)
-  (dolist (frame (frame-list))
+  ;;(setq think-buf (get-buffer ai-first-display-buffer))
+  ;;(setq main-buf (get-buffer ai-second-display-buffer))
+  ;;(setq think-frame nil)
+  ;;(setq main-frame nil)
+  (let ((think-buf (get-buffer ai-first-display-buffer))
+	(main-buf (get-buffer ai-second-display-buffer))
+	(think-frame nil)
+	(main-frame nil)
+	(frames nil))
+    (dolist (frame (frame-list))
       (when (frame-parameter frame 'ai-dis-frame)
 	(when (string= (frame-parameter frame 'ai-dis-type) "think")
 	  (setq think-frame frame))
 	(when (string= (frame-parameter frame 'ai-dis-type) "main")
 	  (setq main-frame frame))))
-  (unless (buffer-live-p think-buf)
+    (unless (buffer-live-p think-buf)
       (setq think-buf (get-buffer-create ai-first-display-buffer))
       (with-current-buffer think-buf
 	(ai-mode)))
-  (unless (buffer-live-p main-buf)
+    (unless (buffer-live-p main-buf)
       (setq main-buf (get-buffer-create ai-second-display-buffer))
       (with-current-buffer main-buf
 	(ai-mode)))
-  (when (and (or think-frame main-frame) (not (and think-frame main-frame)))
+    (when (and (or think-frame main-frame) (not (and think-frame main-frame)))
       (when think-frame
 	(delete-frame think-frame)
 	(setq think-frame nil))
       (when main-frame
 	(delete-frame main-frame)
 	(setq think-frame nil)))
-  (unless (and think-frame main-frame)
+    (unless (and think-frame main-frame)
       (setq frames (ai--display))
       (setq think-frame (car frames))
       (setq main-frame (cdr frames)))
-  (unless (member think-buf (buffer-list think-frame))
+    (unless (member think-buf (buffer-list think-frame))
       (select-frame think-frame)
       (switch-to-buffer think-buf))
-  (unless (member main-buf (buffer-list main-frame))
+    (unless (member main-buf (buffer-list main-frame))
       (select-frame main-frame)
       (switch-to-buffer main-frame))
-  (make-frame-visible think-frame)
-  (make-frame-visible main-frame))
+    (make-frame-visible think-frame)
+    (make-frame-visible main-frame)))
 
 (defun ai-display-message(think main)
   (ai-display-show)
@@ -217,3 +232,5 @@
   (message "over"))
 
 (global-set-key (kbd "M-n") 'request-deepseek-api)
+
+(provide 'ai)

@@ -1,3 +1,5 @@
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+
 ;;; Minimal setup to load latest `org-mode`.
 
 ;; Activate Debuging.

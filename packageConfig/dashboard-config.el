@@ -1,3 +1,6 @@
+;;; dap-conf.el --- Description -*- lexical-binding: t; -*-
+
+
 (use-package dashboard
   :ensure t
   :requires projectile
@@ -22,9 +25,11 @@
 			     ))
 ;;(add-to-list 'dashboard-items '(agenda) t)
 (setq dashboard-week-agenda t)
-(defun my-bashboard-setup()
-  (dashboard-set-center
-   '((group "Projects"
-	    (files projectile-recent-projects)))))
+;;(defun my-bashboard-setup()
+;;  (dashboard-set-center
+;;   '((group "Projects"
+;;	    (files projectile-recent-projects)))))
 
 (define-key dashboard-mode-map (kbd "n") 'dashboard-next-line)
+
+(provide 'dashboard-config)

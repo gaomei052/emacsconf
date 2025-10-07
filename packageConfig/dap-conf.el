@@ -1,13 +1,18 @@
-(load-file (expand-file-name "tools/dap-tools.el" user-emacs-directory))
+;;; dap-conf.el --- Description -*- lexical-binding: t; -*-
 
-(defvar-keymap dap-breakpoint-work-map
-  :doc "Dap breakpoint work"
-  "C-d" 'dap-debug
-  "x" 'dap-disconnect
-  "b" 'dap-breakpoint-toggle
-  "A" 'dap-breakpoint-delete-all
-  "D" 'dap-breakpoint-delete
-  "l" 'dap-ui-breakpoints)
+(use-package dap-tools
+  :load-path "~/.emacs.d/tools"
+  :config
+  (message "Dap tools load Successfully."))
+
+;;(defvar-keymap dap-breakpoint-work-map
+;;  :doc "Dap breakpoint work"
+;;  "C-d" 'dap-debug
+;;  "x" 'dap-disconnect
+;;  "b" 'dap-breakpoint-toggle
+;;  "A" 'dap-breakpoint-delete-all
+;;  "D" 'dap-breakpoint-delete
+;;  "l" 'dap-ui-breakpoints)
 
 (use-package dap-mode
   :ensure t
@@ -17,13 +22,13 @@
 ;;  (dap-tooltip-mode 0)
 ;;  (tooltip-mode 0)
   (dap-ui-controls-mode 1)
-  :hook (dap-stopped . (lambda (arg) (call-interactively #'dap-hydra)))
-  (dap-stopped . (lambda (arg) (dap-tooltip-mode 0)))
-  :bind-keymap ("C-," . dap-breakpoint-work-map)
+  :hook (dap-stopped . (lambda () (call-interactively #'dap-hydra)))
+  (dap-stopped . (lambda () (dap-tooltip-mode 0)))
+  ;;:bind-keymap ("C-," . dap-breakpoint-work-map)
   :config
   (setq dap-breakpoints-file "/Users/gaomei/.emacs.d/temp/emacs-run/dap-breakpoints"))
 
-
+(declare-function dap-register-debug-template "dap-mode")
 
 ;;C & C++ config
 (require 'dap-lldb)
@@ -73,3 +78,5 @@
         :request "launch"
 	:debugger  'debugpy
         :name "Common399"))
+
+(provide 'dap-conf)

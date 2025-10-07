@@ -15,4 +15,5 @@ elpa*/**
 **/recentf
 .cache
 **/nov-places
-
+**/*.elc
+eln-cache/**

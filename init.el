@@ -1,8 +1,17 @@
+;;(profiler-start 'cpu+mem)
+(setq gc-cons-threshold (* 100 1024 1024))
+(when (string= emacs-version "30.2")
+   (setq package-user-dir "/Users/gaomei/.emacs.d/elpa30.0.93"))
 (when (string= emacs-version "30.0.93")
    (setq package-user-dir "/Users/gaomei/.emacs.d/elpa30.0.93"))
 (when (string= emacs-version "29.4")
   (setq package-user-dir "/Users/gaomei/.emacs.d/elpa29.4"))
-(load-file (expand-file-name "packageConfig/packageConfig.el" user-emacs-directory))
+;;(load-file (expand-file-name "packageConfig/packageConfig.el" user-emacs-directory))
+
+(use-package packageConfig
+  :load-path "~/.emacs.d/packageConfig"
+  :config
+  (message "Package config load Successfully."))
 
 (global-hl-line-mode nil)
 
@@ -50,3 +59,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;;(profiler-stop)
+;;(profiler-report)

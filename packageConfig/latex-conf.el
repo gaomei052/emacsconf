@@ -1,4 +1,9 @@
+;;; dap-conf.el --- Description -*- lexical-binding: t; -*-
+
+
 ;; 完整的 PDF 工具配置
+(declare-function pdf-view-midnight-minor-mode "pdf-view-midnight-minor-mode")
+
 (use-package pdf-tools
   :ensure t
   :magic ("%PDF" . pdf-view-mode)
@@ -25,17 +30,27 @@
   (define-key pdf-view-mode-map (kbd "G") 'pdf-view-last-page)
   
   ;; 夜间模式
-  
   (define-key pdf-view-mode-map (kbd "C-c C-m") 'pdf-view-midnight-minor-mode)
+
+  (define-key pdf-view-mode-map (kbd "C-c C-o") 'my/pdf-outline-display-left)
   
   ;; 自动启用
   (add-hook 'pdf-view-mode-hook 
             (lambda ()
               (display-line-numbers-mode -1)
               (hl-line-mode -1)
-              (auto-revert-mode 1)))
+              (auto-revert-mode 1)
+	      (when (fboundp 'linum-mode) (linum-mode -1))))
+
   ;; 默认夜间模式
-  (add-hook 'pdf-view-mode-hook #'pdf-view-midnight-minor-mode)
+  (add-hook 'pdf-view-mode-hook
+	    (lambda ()
+	      (pdf-view-midnight-minor-mode)))
+
+  (setq pdf-view-incompatible-modes
+      (remove 'display-line-numbers-mode pdf-view-incompatible-modes))
+    ;; 设置 PDF 文件自动使用 pdf-view-mode
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   )
 
 ;; 标注系统
@@ -85,7 +100,7 @@
   (setq TeX-source-correlate-mode t)
   (setq TeX-source-correlate-start-server t)
   (setq TeX-command-list
-	`(("latexmk" "latexmk -pdf -pdflatex='xelatex' -silent -use-make %t"
+	`(("latexmk" "latexmk -pdf -pdflatex='xelatex' -silent -use-make --synctex=1 -shell-escape %t"
 	   TeX-run-TeX nil (latex-mode doctex-mode) :help "Use latexmk complie Latex file")
 	  ,@TeX-command-list))
   (setq TeX-view-program-selection '((output-pdf "PDF Tools")))
@@ -153,3 +168,4 @@
   
 
 
+(provide 'latex-conf)

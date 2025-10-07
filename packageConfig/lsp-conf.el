@@ -1,5 +1,11 @@
-(load-file (expand-file-name "tools/executor.el" user-emacs-directory))
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
 
+;;(load-file (expand-file-name "tools/executor.el" user-emacs-directory))
+
+(use-package executor
+  :load-path "~/.emacs.d/tools"
+  :config
+  (message "Executor load Successfully."))
 
 (use-package lsp-mode
   :ensure t
@@ -29,3 +35,4 @@
 			 (require 'lsp-pyright)
 			 (lsp))))
 
+(provide 'lsp-conf)
