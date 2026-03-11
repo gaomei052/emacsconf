@@ -17,3 +17,5 @@ elpa*/**
 **/nov-places
 **/*.elc
 eln-cache/**
+site-lisp/**
+tree-sitter/**

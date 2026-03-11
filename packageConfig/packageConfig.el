@@ -27,6 +27,7 @@
 				  lsp-pyright
 				  request
 				  magit
+                  treesit-fold
 				  ))
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
   (package-refresh-contents)

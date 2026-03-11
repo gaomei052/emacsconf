@@ -42,6 +42,8 @@
               (auto-revert-mode 1)
 	      (when (fboundp 'linum-mode) (linum-mode -1))))
 
+
+
   ;; 默认夜间模式
   (add-hook 'pdf-view-mode-hook
 	    (lambda ()
@@ -52,6 +54,18 @@
     ;; 设置 PDF 文件自动使用 pdf-view-mode
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
   )
+
+  ;; 修改Outline窗口宽度
+(advice-add 'pdf-outline :after
+	    (lambda (&rest _)
+	      (let* ((modify-outline-width 0)
+		     (all-windows nil))
+		(dolist (frame (frame-list))
+		  (setq all-windows (append all-windows (window-list frame))))
+		(dolist (window all-windows)
+		  (when (eq (buffer-local-value 'major-mode (window-buffer window)) 'pdf-outline-buffer-mode)
+		    (setq modify-outline-width (round  (- (* 0.2 (frame-width)) (window-width window))))
+		    (window-resize window modify-outline-width t))))))
 
 ;; 标注系统
 (use-package pdf-annot

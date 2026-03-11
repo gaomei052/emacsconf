@@ -11,6 +11,31 @@
   (setq org-src-fontify-natively t)
   :bind ("C-c c" . org-capture))
 
+(use-package org-xlatex
+  :ensure t
+  :hook (org-mode . org-xlatex-mode)
+  :config
+  ;;基本设置
+  (setq org-xlatex-show-cursor t
+      org-xlatex-cursor-color "#ff6c6b"  ;; 柔和的红色
+      org-xlatex-delay 0.3  ;; 300ms 延迟
+      org-xlatex-window-direction 'right
+      org-xlatex-window-width 0.35
+      org-xlatex-window-height 0.4)
+
+  ;; 自定义预览样式
+  (setq org-xlatex-style "
+    body {
+      background-color: #282c34;
+      color: #abb2bf;
+      font-size: 16px;
+      padding: 1em;
+      line-height: 1.6;
+    }
+    .MathJax {
+      color: #61afef;
+    }"))
+
 ;;Org capture functions
 (defun capture-url-path()
   (let ((url-input (read-from-minibuffer "Url path: ")))
@@ -48,6 +73,11 @@
 	 entry
 	 (file+headline "~/bingo/org/capture/msbank_meeting.org" "Msbank")
 	 "* %T\n 主题: %?\n 事件报告单位: \n 事件概述: \n 事件处理: \n 事件影响: \n 解决方式: \n")
+	("y"
+	 "Msbank meeting"
+	 entry
+	 (file+headline "~/bingo/org/capture/msbank_meet.org" "Msbank meeting")
+	 "* %T\n 主题：%?\n 开始时间: \n 发现问题时间: \n 结束时间: \n 所属应用: \n 事件概述: \n 事件处理: \n 事件影响: \n 解决方式: \n 行方人员: \n 代维人员: \n 事业群人员: \n 出具方案人员: \n 操作人员: \n")
 	))
 
 (setq org-agenda-include-diary t)

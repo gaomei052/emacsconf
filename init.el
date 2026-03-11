@@ -13,6 +13,14 @@
   :config
   (message "Package config load Successfully."))
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-xwidget")
+
+(add-to-list 'load-path "~/.emacs.d/site-lisp/markdown-xwidget/resources")
+
+(require 'markdown-xwidget)
+
+(define-key markdown-mode-command-map "x" 'markdown-xwidget-preview-mode)
+
 (global-hl-line-mode nil)
 
 (setq default-frame-alist '((menu-bar-lines . 0)
@@ -44,7 +52,13 @@
  '(ielm-history-file-name "~/.emacs.d/temp/emacs-run/ielm-history.eld")
  '(kill-ring-max 80)
  '(org-agenda-files '("~/bingo/org/agenda/ms.org"))
- '(package-selected-packages nil)
+ '(package-selected-packages
+   '(ag auto-compile chinese-word-at-point company-auctex dap-mode
+	dashboard exec-path-from-shell flycheck go-mode helm-lsp
+	helm-xref json-mode latex-pretty-symbols lsp-pyright lua-mode
+	magit nov org-xlatex osx-dictionary pdf-tools projectile
+	python-mode request typescript-mode yasnippet-snippets
+	zenburn-theme))
  '(project-list-file "~/.emacs.d/temp/emacs-run/projects")
  '(recentf-save-file "~/.emacs.d/temp/emacs-run/recentf")
  '(smtpmail-smtp-server "smtp.gmail.com")

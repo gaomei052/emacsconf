@@ -1,5 +1,4 @@
 ;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
-
 (use-package zenburn-theme
   :ensure t)
 
@@ -8,6 +7,19 @@
 
 (use-package yasnippet
   :ensure t)
+
+(use-package json-ts-mode
+  :ensure nil
+  :mode "\\.json\\'")
+
+(use-package treesit-fold
+  :ensure t
+  :hook ((json-ts-mode . treesit-fold-mode)
+         (yaml-ts-mode . treesit-fold-mode))
+  :bind
+  (:map treesit-fold-mode-map
+    ("C-c f" . treesit-fold-close)
+    ("C-c g" . treesit-fold-open)))
 
 (use-package nov
   :ensure t
